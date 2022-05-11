@@ -1,0 +1,21 @@
+receivers:
+    otlp:
+        protocols:
+            grpc:
+            http:
+
+exporters:
+    jaeger:
+        endpoint: "172.20.80.2:14250" #Change ip address to your localhost ip
+        tls:
+            insecure: true
+
+processors:
+    batch:
+
+service:
+    pipelines:
+        traces:
+            receivers: [otlp]
+            exporters: [jaeger]
+            processors: [batch]
